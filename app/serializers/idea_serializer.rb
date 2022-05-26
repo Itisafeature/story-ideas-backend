@@ -1,9 +1,11 @@
 class IdeaSerializer
   include JSONAPI::Serializer
 
-  attributes :title, :content
+  attributes :title
 
-  # attribute :comments do |idea|
-  #   CommentSerializer.new(idea.comments)
-  # end
+  attribute :content, if: Proc.new { |record, params| !params[:id].nil? }
+
+  attribute :comments, if: Proc.new { |record, params| !params[:id].nil? } do |idea|
+    CommentSerializer.new(idea.comments)
+  end 
 end
