@@ -4,7 +4,7 @@ class IdeaSerializer
   attributes :title
 
   attribute :truncated_content, if: Proc.new {|record, params| params[:id].nil? } do |idea|
-    idea.content.truncate(50, separator: ' ');
+    idea.content.truncate(100, separator: ' ');
   end
 
   attribute :content, if: Proc.new { |record, params| !params[:id].nil? }

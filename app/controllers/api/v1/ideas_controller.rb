@@ -1,8 +1,8 @@
 class Api::V1::IdeasController < ApplicationController
 
   def index
-    ideas = Idea.all
-    render json: IdeaSerializer.new(ideas) 
+    ideas = Idea.order_by_created
+    render json: IdeaSerializer.new(ideas)
   end
 
   def show
