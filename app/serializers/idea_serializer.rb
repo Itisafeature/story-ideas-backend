@@ -3,6 +3,10 @@ class IdeaSerializer
 
   attributes :title
 
+  attribute :truncated_content, if: Proc.new {|record, params| params[:id].nil? } do |idea|
+    idea.content.truncate(50, separator: ' ');
+  end
+
   attribute :content, if: Proc.new { |record, params| !params[:id].nil? }
 
   attribute :comments, if: Proc.new { |record, params| !params[:id].nil? } do |idea|
