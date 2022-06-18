@@ -25,6 +25,11 @@ class Api::V1::IdeasController < ApplicationController
     end
   end
 
+  def recently_commented
+    ideas = Idea.most_recently_commented
+    render json: IdeaSerializer.new(ideas)
+  end
+
   private
 
   def idea_params
