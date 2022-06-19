@@ -1,7 +1,8 @@
 class Api::V1::IdeasController < ApplicationController
 
   def index
-    ideas = Idea.order_by_created
+    offset = params[:page].to_i * params[:limit].to_i
+    ideas = Idea.order_by_created.offset(offset).limit(params[:limit])
     render json: IdeaSerializer.new(ideas)
   end
 
