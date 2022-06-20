@@ -3,7 +3,9 @@ Rails.application.routes.draw do
   namespace :api do 
     namespace :v1 do 
       get '/ideas/recently-commented', to: 'ideas#recently_commented'
-      resources :ideas, only: [:index, :show, :create]
+      resources :ideas, only: [:index, :show, :create] do
+        resources :comments, only: [:index]
+      end
     end
   end
 
