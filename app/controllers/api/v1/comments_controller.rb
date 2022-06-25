@@ -1,5 +1,10 @@
 class Api::V1::CommentsController < ApplicationController
 
+  def index
+    comments = Comment.where(idea_id: params[:idea_id]).order_by_most_recent
+    render json: CommentSerializer.new(comments)
+  end
+
   def create
     comment = Comment.new(comment_params)
     if comment.save

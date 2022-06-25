@@ -9,7 +9,7 @@ class IdeaSerializer
 
   attribute :content, if: Proc.new { |record, params| !params[:id].nil? }
 
-  attribute :comments, if: Proc.new { |record, params| !params[:id].nil? } do |idea|
-    CommentSerializer.new(idea.comments.order_by_most_recent)
-  end 
+  # attribute :comments, if: Proc.new { |record, params| !params[:id].nil? } do |idea|
+  #   CommentSerializer.new(idea.comments.order_by_most_recent)
+  # end 
 end
