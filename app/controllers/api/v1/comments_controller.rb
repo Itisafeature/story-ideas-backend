@@ -4,7 +4,10 @@ class Api::V1::CommentsController < ApplicationController
     offset = params[:page].to_i * params[:limit].to_i
     comments = Comment.where(idea_id: params[:idea_id])
               .order_by_most_recent.offset(offset).limit(params[:limit])
-    render json: CommentSerializer.new(comments)
+    number_of_comments = Comment.where(idea_id: params[:idea_id]).size
+    options = {}
+    options[:meta] = { total_count: number_of_comments }
+    render json: CommentSerializer.new(comments, options)
   end
 
   def create
