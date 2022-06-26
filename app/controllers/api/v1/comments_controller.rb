@@ -1,7 +1,9 @@
 class Api::V1::CommentsController < ApplicationController
 
   def index
-    comments = Comment.where(idea_id: params[:idea_id]).order_by_most_recent
+    offset = params[:page].to_i * params[:limit].to_i
+    comments = Comment.where(idea_id: params[:idea_id])
+              .order_by_most_recent.offset(offset).limit(params[:limit])
     render json: CommentSerializer.new(comments)
   end
 
